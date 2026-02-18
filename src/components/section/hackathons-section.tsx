@@ -26,7 +26,8 @@ export default function HackathonsSection() {
           </div>
         </div>
         <Timeline>
-          {DATA.hackathons.map((hackathon) => (
+          {/* DATA.hackathons is empty, so we comment this out to avoid TS errors */}
+          {/* {DATA.hackathons.map((hackathon) => (
             <TimelineItem key={hackathon.title + hackathon.dates} className="w-full flex items-start justify-between gap-10">
               <TimelineConnectItem className="flex items-start justify-center">
                 {hackathon.image ? (
