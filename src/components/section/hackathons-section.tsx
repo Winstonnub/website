@@ -26,8 +26,9 @@ export default function HackathonsSection() {
           </div>
         </div>
         <Timeline>
-          {/* Hackathons data is currently empty */}
-          {/* <div className="text-sm text-muted-foreground text-center">No hackathons to display yet.</div> */}
+          <div className="text-sm text-muted-foreground text-center w-full">
+            Detailed hackathon history coming soon!
+          </div>
         </Timeline>
       </div>
     </section>
