@@ -101,7 +101,7 @@ export const DATA = {
       school: "University of Toronto",
       href: "https://utoronto.ca",
       degree: "Bachelor of Science, Double Specialist in Computer Science and Data Science",
-      logoUrl: "/waterloo.png",
+      logoUrl: "/uoft.png",
       start: "Sept 2024",
       end: "Present",
       description: "Hong Kong Scholar, Dean’s List Scholar. cGPA: 3.95/4.0",
