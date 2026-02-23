@@ -84,6 +84,18 @@ export const DATA = {
 
   work: [
     {
+      company: "National University of Singapore",
+      href: "https://nus.edu.sg",
+      badges: [],
+      location: "Singapore",
+      title: "AI Researcher (Incoming)",
+      logoUrl: "/nus.png",
+      start: "May 2026",
+      end: "Incoming",
+      description:
+        "reinforcement learning for decentralized multi-agent pathfinding 🌟🤖",
+    },
+    {
       company: "Hong Kong Digital Policy Office",
       href: "#",
       badges: [],
