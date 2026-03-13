@@ -3,6 +3,8 @@ import { compileMDX } from "@content-collections/mdx";
 import remarkGfm from "remark-gfm";
 import { z } from "zod";
 import { remarkCodeMeta } from "./src/lib/remark-code-meta";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 const posts = defineCollection({
     name: "posts",
@@ -19,10 +21,11 @@ const posts = defineCollection({
     }),
     transform: async (document, context) => {
         const mdx = await compileMDX(context, document, {
-            remarkPlugins: [remarkGfm, remarkCodeMeta],
+            remarkPlugins: [remarkGfm, remarkCodeMeta, remarkMath],
+            rehypePlugins: [rehypeKatex],
         });
         return {
-        ...document,
+            ...document,
             mdx,
         };
     },
