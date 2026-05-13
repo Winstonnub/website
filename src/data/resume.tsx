@@ -96,6 +96,18 @@ export const DATA = {
         "reinforcement learning for decentralized multi-agent pathfinding 🌟🤖",
     },
     {
+      company: "Citibank",
+      href: "https://www.citigroup.com/",
+      badges: [],
+      location: "Remote, US",
+      title: "Early Identification Program",
+      logoUrl: "/citibank.png",
+      start: "Mar 2026",
+      end: "Apr 2026",
+      description:
+        "Selected as 1/163 students in North America",
+    },
+    {
       company: "Hong Kong Digital Policy Office",
       href: "#",
       badges: [],
@@ -156,6 +168,23 @@ export const DATA = {
       links: [],
       image: "",
       video: "/ScoliosisAI_quickdemo.mov",
+    },
+    {
+      title: "Blackjack-RL",
+      href: "",
+      dates: "Apr 2026",
+      active: true,
+      description:
+        "Engineered a full-stack application with 5 RL algorithms and featuring a real-time training dashboard with configurable hyperparameters, enabling users to play blackjack against RL models and sharpen their probability intuition. Benchmarked policy convergence across 1M-episode training runs, demonstrating that learned policies outperform hand-coded basic strategy by 12% in house edge reduction within a constrained action space.",
+      technologies: [
+        "FastAPI",
+        "React",
+        "Vercel",
+        "OpenAI Gymnasium",
+      ],
+      links: [],
+      image: "/blackjack_rl.png",
+      video: "",
     },
     {
       title: "TripBuddy Application",
