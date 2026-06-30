@@ -1,0 +1,57 @@
+Winston Liang
+github.com/Winstonnub|winstonl.vercel.app|linkedin.com/in/winston-liang|cywinston.liang@mail.utoronto.ca|+1 647-669-5372
+Education
+University of Toronto - Hong Kong Scholar, Dean’s List ScholarSept 2024 – Expected 2028
+Bachelor of Science, Specialist in Computer Science and Data Science (cGPA: 3.95/4.0) Toronto, CA
+Experience
+Incoming AI Research Summer InternStarting May 2026
+Multi-Agent Robotic Motion Laboratory @National University of Singapore Singapore
+Early Identification Program Mar 2026 - Apr 2026
+Selected as 1/163 students in North America @Citibank Remote, US
+Summer Intern Jul 2025 – Aug 2025
+Hong Kong Digital Policy Office Hong Kong SAR
+• Reduced vulnerability intelligence reporting time from 2+ hours to less than 1 minute (99.9% faster) by developing a Python scraping
+and alerting pipeline for public security advisories, enabling timely distribution of high-risk alerts to 70+ government bureaus and
+departments.
+• Built a local model inference prototype using Ollama and Open WebUI, achieving∼10 tokens/sec generation and 5 concurrent users
+on an Apple M3 Silicon, enabling staff to use web search feature with internal documents without sending sensitive information to
+external cloud services.
+• Optimized on-premise model deployment for constrained hardware by evaluating quantization, model distillation, and retrieval
+pipelines, enabling efficient inference of 3B–32B parameter models for a 10+ user internal pilot system.
+• Researched and tested approaches for improving reliability of model-generated outputs, including structured context retrieval and
+prompt guardrails, assessing their impact on reducing hallucinated responses and limiting sensitive information exposure in a
+prototype internal knowledge assistant.
+Projects
+SceneClarity - UTMIST ML Developer|Pytorch, Tensorflow, Google ColabSept 2025 – Present
+• Developed a modular ML evaluation pipeline within the University of Toronto Machine Intelligence Student Team, achieved a
+reliability scoring system that assesses autonomous-vehicle perception robustness under adverse conditions.
+• Applied transfer learning with ResNet-18 and ResNet-50 in PyTorch on the WeatherNet dataset (18,039 images), achieving 89.48%
+accuracy and 0.897 macro-F1 with ResNet-50.
+• Collaborated with 8 people in an Agile workflow, managing tasks in Jira, contributing to pull-request reviews, design discussions, and
+weekly standups to maintain code quality and architectural consistency.
+Scoliosis AI|Next.js, PostgreSQL, AWS, Clerk, Prisma, NeonDB, PyTorch, YOLOv8Dec 2025 - Present
+• Built an end-to-end full-stack AI web application for scoliosis detection from spinal X-ray images using YOLOv8 object detection
+model trained on∼1,500 labelled medical images, achieving 96% precision in prediction.
+• Deployed a containerized inference service by packaging FastAPI + YOLOv8 with Docker on AWS EC2, enabling authenticated API
+inference with∼0.24 s end-to-end latency per X-ray image.
+• Implemented a scalable image processing pipeline using AWS S3 presigned URLs for direct browser uploads and PostgreSQL via
+Prisma for metadata storage, enabling secure handling and retrieval of medical scan data.
+UofT Course LLM|Next.js, ChromaDB, SQLite, FastAPIApr 2026
+• Built a RAG academic advising system using OpenAI text-embedding-3-small for semantic embeddings, ChromaDB for vector
+similarity search, and GPT-4o-mini for grounded response generation over verified course and policy data.
+• Engineered a constraint-satisfaction timetable generator using backtracking and conflict pruning, returning ranked conflict-free 3-5
+course schedules in ˜6-16 ms median latency while accounting for class preferences.
+Blackjack-RL|FastAPI, React, Vercel, OpenAI GymnasiumApr 2026
+• Engineered a full-stack application with 5 RL algorithms and featuring a real-time training dashboard with configurable
+hyperparameters, enabling users to play blackjack against RL models and sharpen their probability intuition
+• Benchmarked policy convergence across 1M-episode training runs, demonstrating that learned policies outperform hand-coded basic
+strategy by 12% in house edge reduction within a constrained action space.
+Scholarships / Honors
+University of Toronto International Merit Award— awarded for academic merit.
+Dato Tong, Luis Charitable Foundation Limited Scholarship— selected as 1 of the 4 Hong Kong Scholars.
+The Regents Participation Awards— for making a significant contribution to university student life.
+Skills
+Languages: Python, Java, C, Bash, JavaScript, SQL
+Tools:Git/GitHub, Jira, Linux, Docker, Google AppScript, Amazon Web Services, Tableau, Supabase, Prisma
+Certificates:Machine Learning Specialization (DeepLearningAI), Azure AI Fundamentals (Microsoft), Introduction to Cybersecurity
+(Cisco), Introduction to Cloud Computing and Software Engineering (IBM)

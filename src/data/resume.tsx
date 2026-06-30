@@ -1,10 +1,12 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon, CpuIcon, AppWindowIcon, Share2Icon, GlobeIcon } from "lucide-react";
+import { HomeIcon, NotebookIcon, CpuIcon, AppWindowIcon, Share2Icon, GlobeIcon, PresentationIcon } from "lucide-react";
 import {
   SiPython, SiHtml5, SiJavascript, SiReact, SiNextdotjs, SiPostgresql, SiPytorch,
   SiTensorflow, SiKeras, SiScikitlearn, SiPandas, SiNumpy, SiPlotly,
   SiGit, SiGithub, SiJira, SiLinux, SiDocker, SiAmazon, SiVercel, SiClerk,
-  SiPrisma, SiGooglecolab, SiGoogleappsscript, SiC
+  SiPrisma, SiGooglecolab, SiGoogleappsscript, SiC, SiTypescript, SiSpringboot,
+  SiMongodb, SiApachekafka, SiAnthropic, SiFastapi, SiOpenaigym, SiAmazonwebservices,
+  SiCaddy, SiGithubactions, SiSonarcloud, SiApachejmeter, SiShopify
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 
@@ -15,37 +17,51 @@ export const DATA = {
   location: "Toronto, CA",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
-    "Machine Learning Developer | AI Systems | Full-Stack Engineering",
+    "Software Engineering Intern @ Shopify | AI Systems | Full-Stack Engineering",
   summary:
-    "I am a undergraduate sophomore at the University of Toronto. I do two specialists programs. I am a big sleeper. I lived in Robarts library in my first year.",
+    "I'm a University of Toronto Computer Science and Data Science specialist building AI systems, full-stack products, and reinforcement learning infrastructure. Recently, I have worked on multi-agent robotic motion planning research at NUS, production-ready AI learning infrastructure with Spring Boot and Kafka, and medical imaging inference pipelines deployed on AWS.",
   avatarUrl: "/me.png",
   skills: [
     { name: "Python", icon: SiPython },
     { name: "Java", icon: FaJava },
     { name: "C", icon: SiC },
+    { name: "TypeScript", icon: SiTypescript },
     { name: "HTML/CSS", icon: SiHtml5 },
     { name: "JavaScript", icon: SiJavascript },
     { name: "React.js", icon: SiReact },
     { name: "Next.js", icon: SiNextdotjs },
+    { name: "Spring Boot", icon: SiSpringboot },
+    { name: "FastAPI", icon: SiFastapi },
     { name: "SQL", icon: SiPostgresql },
+    { name: "MongoDB", icon: SiMongodb },
     { name: "Assembly (MIPS)", icon: CpuIcon },
+    { name: "JAX", icon: SiPython },
     { name: "PyTorch", icon: SiPytorch },
     { name: "TensorFlow", icon: SiTensorflow },
     { name: "Keras", icon: SiKeras },
-    { name: "YOLOv5", icon: GlobeIcon },
+    { name: "YOLOv8", icon: GlobeIcon },
     { name: "Scikit-learn", icon: SiScikitlearn },
     { name: "Pandas", icon: SiPandas },
     { name: "Numpy", icon: SiNumpy },
     { name: "Plotly", icon: SiPlotly },
+    { name: "Anthropic API", icon: SiAnthropic },
+    { name: "Kafka", icon: SiApachekafka },
     { name: "Tkinter", icon: AppWindowIcon },
     { name: "NetworkX", icon: Share2Icon },
     { name: "Panolens.js", icon: GlobeIcon },
     { name: "Git", icon: SiGit },
     { name: "GitHub", icon: SiGithub },
+    { name: "GitHub Actions", icon: SiGithubactions },
     { name: "Jira", icon: SiJira },
     { name: "Linux", icon: SiLinux },
     { name: "Docker", icon: SiDocker },
-    { name: "AWS", icon: SiAmazon },
+    { name: "AWS", icon: SiAmazonwebservices },
+    { name: "AWS EC2", icon: SiAmazon },
+    { name: "Caddy", icon: SiCaddy },
+    { name: "SonarCloud", icon: SiSonarcloud },
+    { name: "JMeter", icon: SiApachejmeter },
+    { name: "OpenAI Gymnasium", icon: SiOpenaigym },
+    { name: "Shopify", icon: SiShopify },
     { name: "Vercel", icon: SiVercel },
     { name: "NeonDB", icon: SiPostgresql },
     { name: "Clerk", icon: SiClerk },
@@ -59,7 +75,7 @@ export const DATA = {
   ],
   contact: {
     email: "cywinston.liang@mail.utoronto.ca",
-    tel: "",
+    tel: "+1 647-669-5372",
     social: {
       GitHub: {
         name: "GitHub",
@@ -84,28 +100,28 @@ export const DATA = {
 
   work: [
     {
+      company: "Shopify",
+      href: "https://www.shopify.com/",
+      badges: [],
+      location: "Toronto, ON",
+      title: "Software Engineering Intern (Incoming)",
+      logoUrl: "/shopify.png",
+      start: "Sept 2026",
+      end: "Incoming",
+      description:
+        "Incoming software engineering intern at Shopify.",
+    },
+    {
       company: "National University of Singapore",
       href: "https://nus.edu.sg",
       badges: [],
       location: "Singapore",
-      title: "AI Researcher (Incoming)",
+      title: "AI Research Summer Intern",
       logoUrl: "/nus.png",
       start: "May 2026",
-      end: "Incoming",
+      end: "Present",
       description:
-        "reinforcement learning for decentralized multi-agent pathfinding 🌟🤖",
-    },
-    {
-      company: "Citibank",
-      href: "https://www.citigroup.com/",
-      badges: [],
-      location: "Remote, US",
-      title: "Early Identification Program",
-      logoUrl: "/citibank.png",
-      start: "Mar 2026",
-      end: "Apr 2026",
-      description:
-        "Selected as 1/163 students in North America",
+        "Designed a residual reinforcement learning policy that layers PPO corrections atop a JAX-jitted analytical multi-agent planner, achieving a 99.8% success rate and autonomously resolving deadlocks while cutting agent makespan by 27%. Diagnosed three distinct reward-hacking exploits in a multi-agent PPO training pipeline, then redesigned the reward function while preserving training stability. Built an automated benchmarking pipeline with 600 procedurally generated maps across three difficulty tiers to fairly test 10 multi-agent path-finding algorithms.",
     },
     {
       company: "Hong Kong Digital Policy Office",
@@ -117,44 +133,60 @@ export const DATA = {
       start: "Jul 2025",
       end: "Aug 2025",
       description:
-        "Designed and evaluated a scalable LLM deployment for government office use, laying groundwork with Ollama and Open WebUI and presenting a feasibility study to technical and non-technical stakeholders. Conducted research on LLM context engineering and deployment strategies, including quantization, model distillation, hallucination mitigation, and RAG to reduce legal, compliance, and policy risks in security-sensitive applications. Collaborated with internal teams to gather system requirements and produced a comprehensive deployment proposal covering architecture, operational constraints, and security considerations. Developed a Python automation script for scraping public vulnerabilities and generating security alerts, reducing manual compilation time from hours to minutes and enabling timely dissemination to 70+ government bureaus and departments.",
+        "Reduced vulnerability intelligence reporting time from 2+ hours to less than 1 minute by developing a Python scraping and alerting pipeline for security advisories, enabling timely distribution of high-risk alerts to 70+ government departments. Built a local model inference prototype using Ollama and Open WebUI, reaching approximately 10 tokens/sec generation and 5 concurrent users on Apple M3 Silicon while keeping sensitive information local. Optimized on-premise model deployment for constrained hardware by evaluating quantisation, model distillation, and retrieval pipelines for 3B-32B parameter models. Researched and tested reliability approaches for model-generated outputs to reduce hallucinated responses and limit sensitive information exposure.",
+    },
+    {
+      company: "Citibank",
+      href: "https://www.citigroup.com/",
+      badges: [],
+      location: "Remote, US",
+      title: "Early Identification Program",
+      logoUrl: "/citibank.png",
+      start: "Mar 2026",
+      end: "Apr 2026",
+      description:
+        "Selected as 1 of 163 students in North America for Citi's Early Identification Program.",
     },
   ],
   education: [
     {
       school: "University of Toronto",
       href: "https://utoronto.ca",
-      degree: "Bachelor of Science, Double Specialist in Computer Science and Data Science",
+      degree: "Bachelor of Science, Specialist in Computer Science and Data Science",
       logoUrl: "/uoft.png",
       start: "Sept 2024",
-      end: "Present",
-      description: "Hong Kong Scholar, Dean’s List Scholar. cGPA: 3.95/4.0",
+      end: "Expected 2028",
+      description: "Hong Kong Scholar, Dean’s List Scholar. cGPA: 3.86/4.0",
     },
   ],
   projects: [
     {
-      title: "SceneClarity (University of Toronto Machine Intelligence Student Team)",
-      href: "https://www.utmist.ca/",
-      dates: "Sept 2025 – Present",
+      title: "Drift - AI Microlearning Platform",
+      href: "",
+      dates: "Jun 2026",
       active: true,
       description:
-        "Developed a modular ML evaluation pipeline to assess autonomous-vehicle perception robustness under adverse conditions. Performed exploratory data analysis (EDA) to identify data quality issues, distribution shifts, and failure modes. Applied transfer learning using ResNet-18 and ResNet-50 on the WeatherNet dataset, experimenting with fine-tuning depth, regularization, and evaluation metrics. Collaborated in an Agile workflow using Jira and GitHub for pull requests, design discussions, and weekly standups.",
+        "Built and deployed a full-stack AI microlearning platform using Next.js, Spring Boot, MongoDB, Kafka, and Anthropic API, enabling users to create personalized learning tracks with LLM-generated syllabi and lessons. Reduced user-facing content-generation latency by decoupling slow LLM and email workflows from HTTP requests using Spring Kafka, 4 core topics, retry handling, and dead-letter queues. Hardened production readiness with Dockerized AWS EC2 deployment, Caddy HTTPS reverse proxy, GitHub Actions CI, SonarCloud analysis, 12 backend tests, and a 200-request authenticated JMeter test with 0 errors and 858.8 ms p95 latency.",
       technologies: [
-        "PyTorch",
-        "TensorFlow",
-        "Google Colab",
+        "Next.js",
+        "Spring Boot",
+        "MongoDB",
+        "Kafka",
+        "AWS EC2",
+        "Docker",
+        "Anthropic API",
       ],
       links: [],
-      image: "sceneclarity.png",
+      image: "/driftlanding.png",
       video: "",
     },
     {
-      title: "Scoliosis AI (In Dev)",
-      href: "https://scoliosis-ai.vercel.app/",
-      dates: "Dec 2025",
+      title: "Scoliosis AI",
+      href: "https://drive.google.com/file/d/1ndeHhmtw1LvfQQ5FweZ0YRtNAyuYEtST/view",
+      dates: "Dec 2025 - Present",
       active: true,
       description:
-        "Built an end-to-end full-stack AI web application for scoliosis detection from spinal X-ray images. Implemented a secure image upload pipeline using AWS S3 presigned URLs, storing metadata and detection results in PostgreSQL (NeonDB) via Prisma ORM. Containerized and deployed a FastAPI + YOLO inference service using Docker on AWS EC2 for authenticated server-to-server inference.",
+        "Built an end-to-end full-stack AI web application for scoliosis detection from spinal X-ray images using a YOLOv8 object detection model trained on approximately 1,500 labelled medical images, achieving 96% precision in prediction. Deployed a containerized inference service by packaging FastAPI + YOLOv8 with Docker on AWS EC2, enabling authenticated API inference with approximately 0.24 s end-to-end latency per X-ray image. Implemented a scalable image processing pipeline using AWS S3 presigned URLs for direct browser uploads and PostgreSQL via Prisma for metadata storage, enabling secure handling and retrieval of medical scan data.",
       technologies: [
         "Next.js",
         "PostgreSQL",
@@ -163,26 +195,66 @@ export const DATA = {
         "Prisma",
         "NeonDB",
         "PyTorch",
-        "YOLOv5",
+        "YOLOv8",
       ],
-      links: [],
+      links: [
+        {
+          type: "Demo",
+          href: "https://drive.google.com/file/d/1ndeHhmtw1LvfQQ5FweZ0YRtNAyuYEtST/view",
+          icon: <GlobeIcon className="size-3" />,
+        },
+      ],
       image: "",
       video: "/ScoliosisAI_quickdemo.mov",
     },
     {
+      title: "SceneClarity - UTMIST ML Developer",
+      href: "https://docs.google.com/presentation/d/1x_80BSDE4UM1IlOj89HWDSG_WDCK1oOI3XijBLQBlyk/edit",
+      dates: "Sept 2025 - May 2026",
+      active: true,
+      description:
+        "Developed a modular ML evaluation pipeline within the University of Toronto Machine Intelligence Student Team, achieving a reliability scoring system that assesses autonomous-vehicle perception robustness under adverse conditions. Applied transfer learning with ResNet-18 and ResNet-50 in PyTorch on the WeatherNet dataset of 18,039 images, achieving 89.48% accuracy and 0.897 macro-F1 with ResNet-50. Collaborated with 8 people in an Agile workflow, managing tasks in Jira and contributing to pull-request reviews, design discussions, and weekly standups.",
+      technologies: [
+        "PyTorch",
+        "TensorFlow",
+        "Google Colab",
+        "Jira",
+      ],
+      links: [
+        {
+          type: "Slides",
+          href: "https://docs.google.com/presentation/d/1x_80BSDE4UM1IlOj89HWDSG_WDCK1oOI3XijBLQBlyk/edit",
+          icon: <PresentationIcon className="size-3" />,
+        },
+        {
+          type: "UTMIST",
+          href: "https://www.utmist.ca/",
+          icon: <GlobeIcon className="size-3" />,
+        },
+      ],
+      image: "/sceneclarity.png",
+      video: "",
+    },
+    {
       title: "Blackjack-RL",
-      href: "",
+      href: "https://github.com/Winstonnub/blackjackRL",
       dates: "Apr 2026",
       active: true,
       description:
-        "Engineered a full-stack application with 5 RL algorithms and featuring a real-time training dashboard with configurable hyperparameters, enabling users to play blackjack against RL models and sharpen their probability intuition. Benchmarked policy convergence across 1M-episode training runs, demonstrating that learned policies outperform hand-coded basic strategy by 12% in house edge reduction within a constrained action space.",
+        "Engineered a full-stack application with 5 RL algorithms and a real-time training dashboard with configurable hyperparameters, enabling users to play blackjack against RL models and sharpen their probability intuition. Benchmarked policy convergence across 1M-episode training runs, demonstrating that learned policies outperform hand-coded basic strategy by 12% in house edge reduction within a constrained action space.",
       technologies: [
         "FastAPI",
         "React",
         "Vercel",
         "OpenAI Gymnasium",
       ],
-      links: [],
+      links: [
+        {
+          type: "GitHub",
+          href: "https://github.com/Winstonnub/blackjackRL",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
       image: "/blackjack_rl.png",
       video: "",
     },
@@ -196,7 +268,13 @@ export const DATA = {
       technologies: [
         "Java (Swing, REST API)",
       ],
-      links: [],
+      links: [
+        {
+          type: "GitHub",
+          href: "https://github.com/Winstonnub/CSC207_Project",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
       image: "/tripbuddy.png",
       video: "",
     },
@@ -227,14 +305,14 @@ export const DATA = {
   honors: {
     scholarships: [
       {
-        title: "Dato Tong, Luis Charitable Foundation Limited Scholarship - Hong Kong Scholar",
+        title: "University of Toronto International Merit Award",
         year: "University",
-        description: "Awarded as part of the Hong Kong Scholarship program.",
+        description: "Awarded for academic merit.",
       },
       {
-        title: "International Merit Award",
+        title: "Dato Tong, Luis Charitable Foundation Limited Scholarship",
         year: "University",
-        description: "University of Toronto — Awarded for academic merit.",
+        description: "Selected as 1 of 4 Hong Kong Scholars.",
       },
       {
         title: "Dean’s List Scholar",
@@ -242,9 +320,9 @@ export const DATA = {
         description: "University of Toronto — Maintained a 4.0/4.0 academic year distinction.",
       },
       {
-        title: "The Regents Participation Award",
+        title: "The Regents Participation Awards",
         year: "University",
-        description: "Victoria College — Recognized for significant contribution to university student life.",
+        description: "Victoria College — awarded for making a significant contribution to university student life.",
       },
       {
         title: "Kwan Nang Chong Scholarship (Student of the Year)",
@@ -343,40 +421,16 @@ export const DATA = {
   awards: [],
   certifications: [
     {
+      name: "Machine Learning Specialization",
+      issuer: "DeepLearning.AI",
+      date: "Aug 2025",
+      logoUrl: "/deeplearningai.png",
+    },
+    {
       name: "Microsoft Certified: Azure AI Fundamentals",
       issuer: "Microsoft",
       date: "Jan 2021",
       logoUrl: "/microsoft.png",
-    },
-    {
-      name: "Advanced Learning Algorithms",
-      issuer: "DeepLearning.AI",
-      date: "Aug 2025",
-      logoUrl: "/deeplearningai.png",
-    },
-    {
-      name: "Supervised Machine Learning: Regression and Classification",
-      issuer: "DeepLearning.AI",
-      date: "Aug 2025",
-      logoUrl: "/deeplearningai.png",
-    },
-    {
-      name: "Developing Front-End Apps with React",
-      issuer: "IBM",
-      date: "",
-      logoUrl: "/ibm.png",
-    },
-    {
-      name: "Getting Started with Git and GitHub",
-      issuer: "IBM",
-      date: "",
-      logoUrl: "/ibm.png",
-    },
-    {
-      name: "Introduction to HTML, CSS, & JavaScript",
-      issuer: "IBM",
-      date: "",
-      logoUrl: "/ibm.png",
     },
     {
       name: "Introduction to Cloud Computing",
@@ -406,7 +460,7 @@ export const DATA = {
       title: "Machine Learning Developer",
       logoUrl: "/utmist.png",
       start: "Oct 2025",
-      end: "Present",
+      end: "May 2026",
       description:
         "Working on a modular ML pipeline for SceneClarity to assess and score the reliability of autonomous vehicle perception systems under challenging conditions. Performed Exploratory Data Analysis (EDA) on EDD100k and WeatherNet datasets, facilitating decisions on dataset preparation. Using PyTorch to train ResNet-18 under WeatherNet dataset with a standard train-val-test split. Evaluated model performance on validation and testing set with torchmetrics.",
     },
@@ -430,7 +484,7 @@ export const DATA = {
       title: "Director of Events",
       logoUrl: "/uthksa.png",
       start: "May 2025",
-      end: "Present",
+      end: "May 2026",
       description:
         "Leading a team of 6 to brainstorm events that bring people on campus together. Led orientation day with 140+ participants and coordinated 40+ helpers, creating memorable experiences for first years.",
     },
