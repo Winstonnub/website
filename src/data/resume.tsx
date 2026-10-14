@@ -9,10 +9,9 @@ export const DATA = {
   locationLink: "https://www.google.com/maps/place/toronto",
   role: "Software Engineering Intern @ Shopify",
   secondaryRole: "AI Research Intern @ NUS",
-  tagline:
-    "I teach robots to get out of each other's way, and build the internal tools Shopify's sales team runs on.",
+  tagline: "I train models. I ship software. I fill rooms.",
   summary:
-    "I'm a third-year Computer Science and Data Science student at the University of Toronto. This term I'm a software engineering intern at Shopify in Toronto, and I do reinforcement learning research with the Multi-Agent Robotic Motion Lab at NUS. Before that I spent a summer at Hong Kong's Digital Policy Office, where I replaced a two-hour manual security report with a script that finishes in under a minute.",
+    "I'm a third-year Computer Science and Data Science student at the University of Toronto. This term I'm a software engineering intern at Shopify and a reinforcement learning researcher with the Multi-Agent Robotic Motion Lab at NUS. I'm also VP Logistics at UTMIST, where I ran EigenAI for 400+ people. Before all that, a summer at Hong Kong's Digital Policy Office, replacing a two-hour manual security report with a script that finishes in under a minute.",
   avatarUrl: "/me-512.png",
 
   // Rendered inside the reading-view shell (/classic and /blog), so the

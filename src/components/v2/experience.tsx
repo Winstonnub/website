@@ -152,23 +152,24 @@ export default function V2Experience() {
         </header>
 
         {/* ── Hero ─────────────────────────────────────────────── */}
-        <section className="flex min-h-dvh flex-col justify-center px-6 sm:px-10">
+        <section className="flex min-h-dvh flex-col justify-center px-6 pb-12 pt-24 sm:px-10 [@media(max-height:760px)]:pb-8 [@media(max-height:760px)]:pt-20">
           <div className="mx-auto w-full max-w-6xl">
             <span className="mono mb-6 block text-[11px] uppercase tracking-[0.3em] text-primary/80">
               {DATA.location}
             </span>
 
-            <h1 className="display text-[13vw] text-white sm:text-[9vw] lg:text-[7.5vw]">
+            <h1 className="display text-[clamp(2.25rem,8.5vw,4.75rem)] text-white">
               <MaskText
-                lines={["I teach robots", "to get out of", "each other's way."]}
+                lines={["I train models.", "I ship software.", "I fill rooms."]}
                 delay={0.1}
                 active={entered}
               />
             </h1>
 
-            <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_1fr]">
+            <div className="mt-8 grid gap-7 lg:grid-cols-[1.1fr_1fr] [@media(max-height:760px)]:mt-5">
               <p className="max-w-xl text-lg leading-snug text-white/70">
-                And I build the internal tools Shopify&apos;s sales team runs on.
+                Reinforcement learning research at NUS. Data models at Shopify.
+                A 400-person AI conference at UofT.
               </p>
 
               <div className="flex flex-col gap-6">
@@ -178,7 +179,7 @@ export default function V2Experience() {
                   href="https://utmist.ca/eigenai"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative block aspect-[16/9] max-h-[26vh] w-full overflow-hidden rounded-2xl border border-white/10"
+                  className="group relative block aspect-[16/9] max-h-[22vh] w-full overflow-hidden rounded-2xl border border-white/10"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -207,7 +208,7 @@ export default function V2Experience() {
                 </a>
 
                 <p className="mono text-[13px] leading-relaxed text-white/65">
-                  Third year at UofT. Shopify this term. Research at NUS.
+                  Third year at UofT, Computer Science and Data Science.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3">
