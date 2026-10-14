@@ -394,3 +394,63 @@
     display: none;
   }
 }
+
+/* ───────────────────────────────────────────────────────────────
+   Rocket cursor (cinematic route only)
+   ─────────────────────────────────────────────────────────────── */
+
+/* Applied by the component, so the native cursor only disappears once the
+   replacement is actually running. */
+html.rocket-cursor,
+html.rocket-cursor * {
+  cursor: none;
+}
+
+/* Text fields keep a caret — losing it makes typing feel broken. */
+html.rocket-cursor input,
+html.rocket-cursor textarea,
+html.rocket-cursor [contenteditable="true"] {
+  cursor: text;
+}
+
+.rocket-ship {
+  /* The SVG is drawn from its nose; offset so the body centres on the point. */
+  margin-left: -13px;
+  margin-top: -14px;
+  transition: opacity 180ms ease;
+  filter: drop-shadow(0 0 6px color-mix(in oklch, var(--accent-cyan) 55%, transparent));
+}
+
+.rocket-flame {
+  transform-origin: 13px 27px;
+  /* --thrust is written every frame by the component. */
+  transform: scaleY(calc(0.25 + var(--thrust, 0) * 1.1))
+             scaleX(calc(0.7 + var(--thrust, 0) * 0.45));
+  opacity: calc(0.25 + var(--thrust, 0) * 0.75);
+}
+
+.rocket-spark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+  border-radius: 9999px;
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    #fff1c9 0%,
+    #ffb347 45%,
+    color-mix(in oklch, var(--accent-cyan) 60%, transparent) 100%
+  );
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.rocket-cursor,
+  html.rocket-cursor * {
+    cursor: auto;
+  }
+}

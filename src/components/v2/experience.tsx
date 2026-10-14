@@ -9,6 +9,7 @@ import { EmailButton } from "@/components/email-button";
 import { MaskText } from "@/components/v2/mask-text";
 import { Marquee } from "@/components/v2/marquee";
 import Intro from "@/components/v2/intro";
+import RocketCursor from "@/components/v2/rocket-cursor";
 import Timeline from "@/components/v2/timeline";
 import ProjectRail from "@/components/v2/project-rail";
 import HeroScene from "@/components/three/hero-scene";
@@ -114,6 +115,7 @@ export default function V2Experience() {
       <Intro warpRef={warpRef} onComplete={handleComplete} />
       <CommandPalette />
       <EasterEggs onKonami={burst} />
+      <RocketCursor />
 
       <div className="relative z-10">
         {/* Minimal chrome — the scene is the page. */}
