@@ -1,96 +1,90 @@
-"use client";
-
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Reveal } from "@/components/motion/reveal";
+import { Section } from "@/components/section/section";
 import { DATA } from "@/data/resume";
 
+type Entry = {
+  title: string;
+  description: string;
+  /** Scholarships carry a level; awards carry a year. */
+  level?: string;
+  year?: string;
+};
+
+function EntryList({ items }: { items: readonly Entry[] }) {
+  return (
+    <ul className="flex flex-col">
+      {items.map((item) => (
+        <li
+          key={item.title}
+          className="grid gap-1 border-t border-border py-3.5 md:grid-cols-[1fr_auto] md:items-baseline md:gap-6"
+        >
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sm font-medium">{item.title}</span>
+            <span className="text-pretty text-[13px] leading-relaxed text-muted-foreground">
+              {item.description}
+            </span>
+          </div>
+          <span className="mono flex-none text-[11px] text-muted-foreground">
+            {item.level ?? item.year}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function HonorsSection() {
-    const { scholarships, awards } = DATA.honors;
+  const totalAwards = DATA.honors.awards.reduce(
+    (sum, group) => sum + group.items.length,
+    0,
+  );
 
-    // Helper to group items by year/category
-    const groupItemsByYear = (items: ReadonlyArray<{ year: string; title: string; description?: string }>) => {
-        return items.reduce((acc, item) => {
-            if (!acc[item.year]) {
-                acc[item.year] = [];
-            }
-            acc[item.year].push(item);
-            return acc;
-        }, {} as Record<string, { year: string; title: string; description?: string }[]>);
-    };
-
-    const scholarshipsByYear = groupItemsByYear(scholarships);
-    const awardsByYear = groupItemsByYear(awards);
-
-    // Custom sort order for Scholarships: University -> High School -> Others
-    const scholarshipSort = (a: string, b: string) => {
-        const order = ["University", "High School"];
-        const indexA = order.indexOf(a);
-        const indexB = order.indexOf(b);
-        // If both are in the known order list
-        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-        // If only A is known, it comes first
-        if (indexA !== -1) return -1;
-        if (indexB !== -1) return 1;
-        // Otherwise sort typically
-        return b.localeCompare(a);
-    };
-
-    return (
-        <div className="flex flex-col gap-y-12">
-            {/* Scholarships Section */}
-            <div className="flex flex-col gap-y-4">
-                <h2 className="text-2xl font-bold tracking-tight">Scholarships</h2>
-                <Accordion type="single" collapsible className="flex flex-col gap-3">
-                    {Object.entries(scholarshipsByYear)
-                        .sort(([yearA], [yearB]) => scholarshipSort(yearA, yearB))
-                        .map(([year, items]) => (
-                            <AccordionItem key={year} value={`scholarship-${year}`} className="border rounded-lg bg-card px-4 py-1 shadow-sm">
-                                <AccordionTrigger className="hover:no-underline py-3">
-                                    <span className="text-base font-semibold tracking-tight">{year}</span>
-                                </AccordionTrigger>
-                                <AccordionContent className="pt-2 pb-4 grid gap-4">
-                                    {items.map((item, index) => (
-                                        <div key={index} className="flex flex-col gap-1 pb-4 last:pb-0 border-b last:border-0 border-dashed">
-                                            <h4 className="font-semibold text-base leading-tight">{item.title}</h4>
-                                            {item.description && (
-                                                <p className="text-sm text-muted-foreground leading-snug">{item.description}</p>
-                                            )}
-                                        </div>
-                                    ))}
-                                </AccordionContent>
-                            </AccordionItem>
-                        ))}
-                </Accordion>
-            </div>
-
-            {/* Awards Section */}
-            <div className="flex flex-col gap-y-4">
-                <h2 className="text-2xl font-bold tracking-tight">Awards & Competitions</h2>
-                <Accordion type="single" collapsible className="flex flex-col gap-3">
-                    {Object.entries(awardsByYear)
-                        .map(([year, items]) => (
-                            <AccordionItem key={year} value={`award-${year}`} className="border rounded-lg bg-card px-4 py-1 shadow-sm">
-                                <AccordionTrigger className="hover:no-underline py-3">
-                                    <span className="text-base font-semibold tracking-tight">{year}</span>
-                                </AccordionTrigger>
-                                <AccordionContent className="pt-2 pb-4 grid gap-4">
-                                    {items.map((item, index) => (
-                                        <div key={index} className="flex flex-col gap-1 pb-4 last:pb-0 border-b last:border-0 border-dashed">
-                                            <h4 className="font-semibold text-base leading-tight">{item.title}</h4>
-                                            {item.description && (
-                                                <p className="text-sm text-muted-foreground leading-snug">{item.description}</p>
-                                            )}
-                                        </div>
-                                    ))}
-                                </AccordionContent>
-                            </AccordionItem>
-                        ))}
-                </Accordion>
-            </div>
+  return (
+    <Section
+      id="honors"
+      eyebrow="06 / honors"
+      title="Scholarships & awards"
+      description={`${DATA.honors.scholarships.length} scholarships and ${totalAwards} competition awards, from university back through secondary school.`}
+    >
+      <Reveal>
+        <div className="mb-10">
+          <h3 className="eyebrow mb-2">Scholarships</h3>
+          <EntryList items={DATA.honors.scholarships} />
         </div>
-    );
+      </Reveal>
+
+      <Reveal index={1}>
+        <div>
+          <h3 className="eyebrow mb-2">Awards</h3>
+          <Accordion type="multiple" className="flex flex-col">
+            {DATA.honors.awards.map((group) => (
+              <AccordionItem
+                key={group.category}
+                value={group.category}
+                className="border-t border-border"
+              >
+                <AccordionTrigger className="gap-3 py-3.5 text-sm font-medium hover:no-underline">
+                  <span className="flex flex-1 items-center justify-between gap-3 pr-3">
+                    {group.category}
+                    <span className="mono text-[11px] font-normal text-muted-foreground">
+                      {group.items.length}
+                    </span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <EntryList items={group.items} />
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </Reveal>
+    </Section>
+  );
 }

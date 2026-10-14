@@ -1,41 +1,48 @@
-import Link from "next/link";
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import { Reveal } from "@/components/motion/reveal";
+import { EmailButton } from "@/components/email-button";
 import { DATA } from "@/data/resume";
 
 export default function ContactSection() {
   return (
-    <div className="border rounded-xl p-10 relative">
-      <div className="absolute -top-4 border bg-primary z-10 rounded-xl px-4 py-1 left-1/2 -translate-x-1/2">
-        <span className="text-background text-sm font-medium">Contact</span>
-      </div>
-      <div className="absolute inset-0 top-0 left-0 right-0 h-1/2 rounded-xl overflow-hidden">
-        <FlickeringGrid
-          className="h-full w-full"
-          squareSize={2}
-          gridGap={2}
-          style={{
-            maskImage: "linear-gradient(to bottom, black, transparent)",
-            WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
-          }}
-        />
-      </div>
-      <div className="relative flex flex-col items-center gap-4 text-center">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-          Get in Touch
-        </h2>
-        <p className="mx-auto max-w-lg text-muted-foreground text-balance">
-          Want to chat? Just shoot me an{" "}
-          <Link
-            href={`mailto:${DATA.contact.email}`}
-            className="text-blue-500 hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
-          >
-            email
-          </Link>{" "}
-          and I&apos;ll respond whenever I can. I will ignore all
-          soliciting.
-        </p>
-      </div>
-    </div>
+    <section id="contact" className="scroll-mt-24 py-20">
+      <Reveal>
+        <div className="glow-ring relative overflow-hidden rounded-2xl border border-border bg-card/40 p-8 sm:p-12">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-primary/10 blur-3xl"
+          />
+          <div className="relative flex flex-col gap-5">
+            <span className="eyebrow">10 / contact</span>
+            <h2 className="max-w-xl text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
+              Say hello
+            </h2>
+            <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
+              Happy to talk about research, systems work, or a role you&apos;re
+              hiring for. Email reaches me fastest, and I read everything.
+            </p>
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <EmailButton withCopy />
+              {Object.entries(DATA.contact.social)
+                .filter(([key, social]) => social.navbar && key !== "email")
+                .map(([name, social]) => {
+                  const Icon = social.icon;
+                  return (
+                    <a
+                      key={name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.name}
+                      className="inline-flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+                    >
+                      <Icon className="size-4" />
+                    </a>
+                  );
+                })}
+            </div>
+          </div>
+        </div>
+      </Reveal>
+    </section>
   );
 }
-

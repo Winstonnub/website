@@ -15,15 +15,35 @@ const getFontData = async () => {
     try {
         const [cabinetGrotesk, clashDisplay] = await Promise.all([
             fetch(
-                new URL("../../../public/fonts/CabinetGrotesk-Medium.ttf", import.meta.url)
+                new URL("../../../../public/fonts/CabinetGrotesk-Medium.ttf", import.meta.url)
             ).then((res) => res.arrayBuffer()),
             fetch(
-                new URL("../../../public/fonts/ClashDisplay-Semibold.ttf", import.meta.url)
+                new URL("../../../../public/fonts/ClashDisplay-Semibold.ttf", import.meta.url)
             ).then((res) => res.arrayBuffer()),
         ]);
         return { cabinetGrotesk, clashDisplay };
     } catch (error) {
         console.error("Failed to load fonts:", error);
+        return null;
+    }
+};
+
+/**
+ * Loads the avatar from the bundle rather than over the network.
+ *
+ * It used to be fetched from DATA.url, which meant every OG image depended on
+ * the *deployed* site already serving that exact filename — so it broke in dev
+ * and broke in production any time the file was renamed before a deploy.
+ */
+const getAvatarDataUri = async (): Promise<string | null> => {
+    try {
+        const res = await fetch(new URL("../../../../public/og-avatar.png", import.meta.url));
+        if (!res.ok) return null;
+        const bytes = new Uint8Array(await res.arrayBuffer());
+        let binary = "";
+        for (let i = 0; i < bytes.length; i += 1) binary += String.fromCharCode(bytes[i]);
+        return `data:image/png;base64,${btoa(binary)}`;
+    } catch {
         return null;
     }
 };
@@ -63,7 +83,7 @@ const styles = {
         left: "40px",
         display: "flex",
         alignItems: "center",
-        zIndex: "2",
+        zIndex: 2,
     },
     mainContainer: {
         display: "flex",
@@ -73,7 +93,7 @@ const styles = {
         height: "100%",
         width: "100%",
         position: "relative",
-        zIndex: "1",
+        zIndex: 1,
     },
     image: {
         width: "140px",
@@ -110,9 +130,7 @@ export default async function Image() {
         const fontData = await getFontData();
         const title = "Blog";
         const description = "Thoughts on software development, life, and more.";
-        const imageUrl = DATA.avatarUrl
-            ? new URL(DATA.avatarUrl, DATA.url).toString()
-            : undefined;
+        const imageUrl = await getAvatarDataUri();
 
         return new ImageResponse(
             (

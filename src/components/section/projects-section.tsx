@@ -1,59 +1,83 @@
-import BlurFade from "@/components/magicui/blur-fade";
+import { ArrowUpRight } from "lucide-react";
+import { Reveal } from "@/components/motion/reveal";
+import { Section } from "@/components/section/section";
 import { ProjectCard } from "@/components/project-card";
 import { DATA } from "@/data/resume";
 
-const BLUR_FADE_DELAY = 0.04;
-
 export default function ProjectsSection() {
-    return (
-        <section id="projects">
-            <div className="flex min-h-0 flex-col gap-y-8">
-                <div className="flex flex-col gap-y-4 items-center justify-center">
-                    <div className="flex items-center w-full">
-                        <div
-                            className="flex-1 h-px bg-linear-to-r from-transparent from-5% via-border via-95% to-transparent"
+  const featured = DATA.projects.filter((project) => project.featured);
+  const rest = DATA.projects.filter((project) => !project.featured);
 
-                        />
-                        <div className="border bg-primary z-10 rounded-xl px-4 py-1">
-                            <span className="text-background text-sm font-medium">My Projects</span>
-                        </div>
-                        <div
-                            className="flex-1 h-px bg-linear-to-l from-transparent from-5% via-border via-95% to-transparent"
+  return (
+    <Section
+      id="projects"
+      eyebrow="03 / projects"
+      title="Things I've built"
+      description="A scoliosis detector that reads X-rays, a learning app that writes its own lessons, a stock exchange simulated in C, and a blackjack player that taught itself the odds."
+    >
+      <div className="grid gap-5 lg:grid-cols-2">
+        {featured.map((project, index) => (
+          <Reveal key={project.title} index={index} className="h-full">
+            <ProjectCard
+              title={project.title}
+              subtitle={project.subtitle}
+              dates={project.dates}
+              description={project.description}
+              highlights={project.highlights}
+              technologies={project.technologies}
+              links={project.links}
+              image={project.image}
+              video={project.video}
+            />
+          </Reveal>
+        ))}
+      </div>
 
-                        />
-                    </div>
-                    <div className="flex flex-col gap-y-3 items-center justify-center">
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Check out my latest work</h2>
-                        <p className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center">
-                            I&apos;ve worked on a variety of projects, from simple
-                            websites to complex web applications. Here are a few of my
-                            favorites.
-                        </p>
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto auto-rows-fr">
-                    {DATA.projects.map((project, id) => (
-                        <BlurFade
-                            key={project.title}
-                            delay={BLUR_FADE_DELAY * 12 + id * 0.05}
-                            className="h-full"
-                        >
-                            <ProjectCard
-                                href={project.href}
-                                key={project.title}
-                                title={project.title}
-                                description={project.description}
-                                dates={project.dates}
-                                tags={project.technologies}
-                                image={project.image}
-                                video={project.video}
-                                links={project.links}
-                            />
-                        </BlurFade>
+      <Reveal index={2}>
+        <div className="mt-12 flex flex-col">
+          <span className="eyebrow mb-4">more</span>
+          {rest.map((project) => {
+            const Wrapper = project.href ? "a" : "div";
+            return (
+              <Wrapper
+                key={project.title}
+                {...(project.href
+                  ? { href: project.href, target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="group grid gap-2 border-t border-border py-5 md:grid-cols-[1fr_auto] md:items-start md:gap-8"
+              >
+                <div className="flex flex-col gap-1.5">
+                  <h3 className="flex items-center gap-1.5 text-sm font-semibold">
+                    {project.title}
+                    <span className="mono font-normal text-muted-foreground">
+                      · {project.subtitle}
+                    </span>
+                    {project.href && (
+                      <ArrowUpRight className="size-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                    )}
+                  </h3>
+                  <p className="max-w-2xl text-pretty text-[13px] leading-relaxed text-muted-foreground">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="mono rounded-md border border-border bg-card/40 px-2 py-0.5 text-[11px] text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
                     ))}
+                  </div>
                 </div>
-            </div>
-        </section>
-    );
+                <span className="mono text-[11px] text-muted-foreground md:pt-1">
+                  {project.dates}
+                </span>
+              </Wrapper>
+            );
+          })}
+        </div>
+      </Reveal>
+    </Section>
+  );
 }
-

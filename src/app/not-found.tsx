@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
     return (
-        <div className="min-h-[calc(100vh-12rem)] flex flex-col">
+        <div className="flex min-h-[calc(100vh-12rem)] flex-col py-16">
             <div className="flex-1 flex items-center justify-center p-8">
                 <div className="flex flex-col items-center text-center max-w-md relative">
                     <h1 className="text-[200px] font-semibold font-mono bg-linear-to-b from-primary/30 to-secondary/10 text-transparent bg-clip-text absolute -top-40 left-1/2 -translate-x-1/2 mask-[linear-gradient(to_bottom,black,black_20%,transparent_80%)] tracking-tighter uppercase [-webkit-text-stroke:3px_hsl(var(--primary)/0.6)]">

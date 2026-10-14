@@ -28,6 +28,26 @@ const getFontData = async () => {
     }
 };
 
+/**
+ * Loads the avatar from the bundle rather than over the network.
+ *
+ * It used to be fetched from DATA.url, which meant every OG image depended on
+ * the *deployed* site already serving that exact filename — so it broke in dev
+ * and broke in production any time the file was renamed before a deploy.
+ */
+const getAvatarDataUri = async (): Promise<string | null> => {
+    try {
+        const res = await fetch(new URL("../../public/og-avatar.png", import.meta.url));
+        if (!res.ok) return null;
+        const bytes = new Uint8Array(await res.arrayBuffer());
+        let binary = "";
+        for (let i = 0; i < bytes.length; i += 1) binary += String.fromCharCode(bytes[i]);
+        return `data:image/png;base64,${btoa(binary)}`;
+    } catch {
+        return null;
+    }
+};
+
 const styles = {
     outerWrapper: {
         height: "100%",
@@ -63,7 +83,7 @@ const styles = {
         left: "40px",
         display: "flex",
         alignItems: "center",
-        zIndex: "2",
+        zIndex: 2,
     },
     mainContainer: {
         display: "flex",
@@ -73,7 +93,7 @@ const styles = {
         height: "100%",
         width: "100%",
         position: "relative",
-        zIndex: "1",
+        zIndex: 1,
     },
     image: {
         width: "140px",
@@ -108,9 +128,7 @@ const styles = {
 export default async function Image() {
     try {
         const fontData = await getFontData();
-        const imageUrl = DATA.avatarUrl
-            ? new URL(DATA.avatarUrl, DATA.url).toString()
-            : undefined;
+        const imageUrl = await getAvatarDataUri();
 
         return new ImageResponse(
             (
@@ -124,9 +142,7 @@ export default async function Image() {
                             )}
                             <div style={styles.mainContainer}>
                                 <div style={styles.title}>{DATA.name}</div>
-                                {DATA.description && (
-                                    <div style={styles.description}>{DATA.description}</div>
-                                )}
+                                <div style={styles.description}>{DATA.role}</div>
                             </div>
                         </div>
                     </div>

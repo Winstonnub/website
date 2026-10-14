@@ -114,7 +114,7 @@ export default async function Blog({
   }).replace(/</g, "\\u003c");
 
   return (
-    <section id="blog">
+    <main id="blog" className="py-16">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -129,10 +129,10 @@ export default async function Blog({
         </Link>
       </div>
       <div className="flex flex-col gap-4">
-        <h1 className="title font-semibold text-3xl md:text-4xl tracking-tighter leading-tight">
+        <h1 className="text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
           {post.title}
         </h1>
-        <p className="text-sm text-muted-foreground">
+        <p className="mono text-[11px] text-muted-foreground">
           {formatDate(post.publishedAt)}
         </p>
       </div>
@@ -188,6 +188,6 @@ export default async function Blog({
           )}
         </div>
       </nav>
-    </section>
+    </main>
   );
 }

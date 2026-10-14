@@ -1,4 +1,3 @@
-import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
@@ -7,7 +6,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "katex/dist/katex.min.css";
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { Analytics } from "@vercel/analytics/next";
 
 const geist = Geist({
@@ -22,18 +20,20 @@ const geistMono = Geist_Mono({
   variable: "--font-mono",
 });
 
+const description = `${DATA.role} · ${DATA.secondaryRole}. ${DATA.tagline}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
   title: {
-    default: DATA.name,
+    default: `${DATA.name} — ${DATA.role}`,
     template: `%s | ${DATA.name}`,
   },
-  description: DATA.description,
+  description,
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
+    title: DATA.name,
+    description,
     url: DATA.url,
-    siteName: `${DATA.name}`,
+    siteName: DATA.name,
     locale: "en_US",
     type: "website",
   },
@@ -49,12 +49,9 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: `${DATA.name}`,
+    title: DATA.name,
+    description,
     card: "summary_large_image",
-  },
-  verification: {
-    google: "",
-    yandex: "",
   },
 };
 
@@ -68,28 +65,19 @@ export default function RootLayout({
       <body
         suppressHydrationWarning
         className={cn(
-          "min-h-screen bg-background font-sans antialiased relative",
+          "relative min-h-screen bg-background font-sans antialiased",
           geist.variable,
-          geistMono.variable
+          geistMono.variable,
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="light">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <TooltipProvider delayDuration={0}>
-            <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
-              <FlickeringGrid
-                className="h-full w-full"
-                squareSize={2}
-                gridGap={2}
-                style={{
-                  maskImage: "linear-gradient(to bottom, black, transparent)",
-                  WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
-                }}
-              />
-            </div>
-            <div className="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-6">
-              {children}
-            </div>
-            <Navbar />
+            {/* Blueprint grid behind everything, faded out toward the bottom. */}
+            <div
+              aria-hidden
+              className="lab-grid pointer-events-none fixed inset-0 z-0 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]"
+            />
+            {children}
           </TooltipProvider>
         </ThemeProvider>
         <Analytics />

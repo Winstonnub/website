@@ -1,143 +1,166 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
-import { useState } from "react";
-import Markdown from "react-markdown";
+/* eslint-disable @next/next/no-img-element */
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import type { ReactNode } from "react";
+import { useRef } from "react";
 
-function ProjectImage({ src, alt }: { src: string; alt: string }) {
-  const [imageError, setImageError] = useState(false);
-
-  if (!src || imageError) {
-    return <div className="w-full h-48 bg-muted" />;
-  }
-
-  return (
-    <img
-      src={src}
-      alt={alt}
-      className="w-full h-48 object-cover"
-      onError={() => setImageError(true)}
-    />
-  );
-}
-
-interface Props {
+export type ProjectCardProps = {
   title: string;
-  href?: string;
-  description: string;
+  subtitle: string;
   dates: string;
-  tags: readonly string[];
-  link?: string;
+  description: string;
+  highlights: readonly string[];
+  technologies: readonly string[];
+  links: readonly { type: string; href: string; icon: ReactNode }[];
   image?: string;
   video?: string;
-  links?: readonly {
-    icon: React.ReactNode;
-    type: string;
-    href: string;
-  }[];
-  className?: string;
-}
+  href?: string;
+};
 
+/**
+ * Featured project card. Tracks the pointer to drive a soft spotlight and a
+ * few degrees of tilt; both are disabled under reduced motion.
+ */
 export function ProjectCard({
   title,
-  href,
-  description,
+  subtitle,
   dates,
-  tags,
-  link,
+  description,
+  highlights,
+  technologies,
+  links,
   image,
   video,
-  links,
-  className,
-}: Props) {
+}: ProjectCardProps) {
+  const reduced = useReducedMotion();
+  const card = useRef<HTMLDivElement>(null);
+
+  const pointerX = useMotionValue(0.5);
+  const pointerY = useMotionValue(0.5);
+
+  const rotateX = useSpring(useMotionValue(0), { stiffness: 180, damping: 22 });
+  const rotateY = useSpring(useMotionValue(0), { stiffness: 180, damping: 22 });
+
+  const spotlight = useMotionTemplate`radial-gradient(420px circle at ${useMotionTemplate`calc(${pointerX} * 100%)`} ${useMotionTemplate`calc(${pointerY} * 100%)`}, color-mix(in oklch, var(--primary) 12%, transparent), transparent 70%)`;
+
+  const handleMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (reduced || !card.current) return;
+    const bounds = card.current.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    pointerX.set(x);
+    pointerY.set(y);
+    rotateY.set((x - 0.5) * 6);
+    rotateX.set((0.5 - y) * 6);
+  };
+
+  const handleLeave = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+    pointerX.set(0.5);
+    pointerY.set(0.5);
+  };
+
   return (
-    <div
-      className={cn(
-        "flex flex-col h-full border border-border rounded-xl overflow-hidden hover:ring-2 cursor-pointer hover:ring-muted transition-all duration-200",
-        className
-      )}
+    <motion.div
+      ref={card}
+      onPointerMove={handleMove}
+      onPointerLeave={handleLeave}
+      style={reduced ? undefined : { rotateX, rotateY, transformPerspective: 1200 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card/40 transition-colors hover:border-primary/40"
     >
-      <div className="relative shrink-0">
-        <Link
-          href={href || "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block"
-        >
+      {!reduced && (
+        <motion.div
+          aria-hidden
+          style={{ background: spotlight }}
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        />
+      )}
+
+      {(image || video) && (
+        <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border bg-[#0b1016]">
           {video ? (
             <video
               src={video}
+              poster={image || undefined}
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-48 object-cover"
+              preload="metadata"
+              className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
-          ) : image ? (
-            <ProjectImage src={image} alt={title} />
           ) : (
-            <div className="w-full h-48 bg-muted" />
+            <img
+              src={image}
+              alt={title}
+              className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            />
           )}
-        </Link>
-        {links && links.length > 0 && (
-          <div className="absolute top-2 right-2 flex flex-wrap gap-2">
-            {links.map((link, idx) => (
-              <Link
-                href={link.href}
-                key={idx}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
+        </div>
+      )}
+
+      <div className="relative flex flex-1 flex-col gap-3 p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col gap-0.5">
+            <h3 className="text-base font-semibold tracking-tight">{title}</h3>
+            <span className="mono text-[11px] text-muted-foreground">
+              {subtitle}
+            </span>
+          </div>
+          <span className="mono flex-none text-[11px] text-muted-foreground">
+            {dates}
+          </span>
+        </div>
+
+        <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
+          {description}
+        </p>
+
+        {highlights.length > 0 && (
+          <ul className="flex flex-col gap-2">
+            {highlights.map((highlight) => (
+              <li
+                key={highlight}
+                className="relative pl-4 text-pretty text-[13px] leading-relaxed text-muted-foreground before:absolute before:left-0 before:top-[0.6em] before:size-1 before:rounded-full before:bg-primary/50"
               >
-                <Badge
-                  className="flex items-center gap-1.5 text-xs bg-black text-white hover:bg-black/90"
-                  variant="default"
+                {highlight}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div className="mt-auto flex flex-col gap-3 pt-2">
+          <div className="flex flex-wrap gap-1.5">
+            {technologies.map((tech) => (
+              <span
+                key={tech}
+                className="mono rounded-md border border-border bg-background/60 px-2 py-0.5 text-[11px] text-muted-foreground"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {links.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {links.map((link) => (
+                <a
+                  key={link.type}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-[11px] font-medium transition-colors hover:border-primary/50 hover:text-primary"
                 >
                   {link.icon}
                   {link.type}
-                </Badge>
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
-      <div className="p-6 flex flex-col gap-3 flex-1">
-        <div className="flex items-start justify-between gap-2">
-          <div className="flex flex-col gap-1">
-            <h3 className="font-semibold">{title}</h3>
-            <time className="text-xs text-muted-foreground">{dates}</time>
-          </div>
-          <Link
-            href={href || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
-            aria-label={`Open ${title}`}
-          >
-            <ArrowUpRight className="h-4 w-4" aria-hidden />
-          </Link>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
-        <div className="text-xs flex-1 prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
-          <Markdown>{description}</Markdown>
-        </div>
-        {tags && tags.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-auto">
-            {tags.map((tag) => (
-              <Badge
-                key={tag}
-                className="text-[11px] font-medium border border-border h-6 w-fit px-2"
-                variant="outline"
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )}
       </div>
-    </div>
+    </motion.div>
   );
 }

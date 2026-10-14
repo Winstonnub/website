@@ -1,72 +1,53 @@
-# Winston Liang - Portfolio
+# Winston Liang — Portfolio
 
-Welcome to my personal portfolio website! This repository houses the source code for my portfolio, where I showcase my projects, skills, and professional experience as a Machine Learning Developer and Full-Stack Engineer.
+Source for [winstonl.vercel.app](https://winstonl.vercel.app). A dark, lab-styled
+single-page portfolio with an interactive multi-agent pathfinding scene in the hero.
 
-## 🚀 About Me
+## The hero scene
 
-I am an undergraduate student at the **University of Toronto**, specializing in **Computer Science** and **Data Science**. My passion lies in building scalable AI systems, developing full-stack web applications, and exploring the frontiers of machine learning.
+The landing scene is a small multi-agent pathfinding world — the same problem I
+research at NUS. Agents plan routes with A* across a grid, and re-plan whenever
+the world changes. Click any cell to drop a wall and watch them route around it.
 
-- **Location:** Toronto, Canada
-- **Focus:** Machine Learning, AI Systems, Full-Stack Engineering
-- **University:** University of Toronto (Hong Kong Scholar, Dean's List)
+- `src/lib/pathfinding.ts` — pure A*, grid helpers, goal selection. No three.js,
+  no React, fully testable on its own.
+- `src/components/three/agent-world.tsx` — the react-three-fiber scene.
+- `src/components/three/hero-scene.tsx` — lazy-loads the scene only once it
+  scrolls into view, and swaps in a static panel under `prefers-reduced-motion`.
 
-## 🛠️ Tech Stack
+## Tech
 
-This website is built with modern web technologies to ensure performance, accessibility, and a great user experience:
-
-- **Framework:** [Next.js](https://nextjs.org/) (React)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Language:** TypeScript
-- **UI Components:** [Magic UI](https://magicui.design/), [Shadcn UI](https://ui.shadcn.com/)
+- **Framework:** Next.js 16 (App Router, Turbopack)
+- **Styling:** Tailwind CSS v4 with CSS custom-property theming
+- **3D:** three.js via @react-three/fiber and @react-three/drei
+- **Motion:** motion (Framer Motion)
+- **Content:** MDX blog posts via content-collections, with KaTeX math
 - **Deployment:** Vercel
 
-## 📂 Features
+## Content
 
-- **Dynamic Content:** Resume data is structured in `src/data/resume.tsx` for easy updates.
-- **Interactive UI:** Smooth animations using Framer Motion and custom Tailwind configurations.
-- **Responsive Design:** Fully optimized for mobile, tablet, and desktop devices.
-- **Sections:**
-  - **About:** Brief introduction and summary.
-  - **Work Experience:** Timeline of professional roles.
-  - **Education:** Academic background and achievements.
-  - **Projects:** Showcase of technical projects with links and media.
-  - **Skills:** Categorized list of technical skills with icons.
-  - **Honors & Awards:** Categorized list of scholarships and competition awards.
-  - **Leadership:** Extracurricular and leadership roles.
-  - **Certifications:** Professional certifications and courses.
-  - **Contact:** Social links and email.
+Everything on the page is driven by `src/data/resume.tsx` — experience, projects,
+skills, honors, leadership, certifications, and the headline metrics. Edit that
+file and the whole site follows.
 
-## 🏃‍♂️ Running Locally
+Blog posts are MDX files in `content/`. Frontmatter requires `title`,
+`publishedAt`, and `summary`; `updatedAt`, `author`, and `image` are optional.
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/Winstonnub/website.git
-    cd website
-    ```
+## Running locally
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    # or
-    pnpm install
-    # or
-    yarn install
-    ```
+```bash
+pnpm install
+pnpm dev
+```
 
-3.  **Run the development server:**
-    ```bash
-    npm run dev
-    # or
-    pnpm dev
-    ```
+Then open [http://localhost:3000](http://localhost:3000).
 
-4.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```bash
+pnpm build      # production build
+pnpm lint       # eslint
+```
 
-## 🎨 Credits
+## Credits
 
-This portfolio relies on the amazing template provided by **Magic UI**.
-
-- **Original Template:** [Magic UI Portfolio Template](https://github.com/magicuidesign/portfolio/tree/main)
-- **Creator:** [Magic UI](https://magicui.design/)
-
-Feel free to star the original repository if you like the design!
+The original scaffold came from the [Magic UI portfolio template](https://github.com/magicuidesign/portfolio).
+The current design, content model, and hero scene are my own.

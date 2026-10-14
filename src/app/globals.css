@@ -234,3 +234,163 @@
   }
 
 }
+/* ───────────────────────────────────────────────────────────────
+   Dark lab theme. Overrides the template tokens above.
+   ─────────────────────────────────────────────────────────────── */
+
+:root {
+  --accent-cyan: oklch(0.78 0.15 195);
+  --accent-violet: oklch(0.62 0.21 285);
+  --grid-line: oklch(0.145 0 0 / 7%);
+}
+
+.dark {
+  --background: oklch(0.145 0.008 250);
+  --foreground: oklch(0.97 0.004 250);
+  --card: oklch(0.185 0.01 250);
+  --card-foreground: oklch(0.97 0.004 250);
+  --popover: oklch(0.185 0.01 250);
+  --popover-foreground: oklch(0.97 0.004 250);
+  --primary: oklch(0.78 0.15 195);
+  --primary-foreground: oklch(0.16 0.01 250);
+  --secondary: oklch(0.24 0.012 250);
+  --secondary-foreground: oklch(0.97 0.004 250);
+  --muted: oklch(0.24 0.012 250);
+  --muted-foreground: oklch(0.68 0.012 250);
+  --accent: oklch(0.26 0.015 250);
+  --accent-foreground: oklch(0.97 0.004 250);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.78 0.15 195 / 60%);
+  --grid-line: oklch(1 0 0 / 5%);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--accent-cyan);
+    color: oklch(0.16 0.01 250);
+  }
+
+  /* Blueprint grid that sits behind the whole page */
+  .lab-grid {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Eyebrow label used above every section heading */
+  .eyebrow {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--foreground) 0%,
+      var(--foreground) 45%,
+      var(--accent-cyan) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-ring {
+    box-shadow:
+      0 0 0 1px var(--border),
+      0 0 32px -12px color-mix(in oklch, var(--accent-cyan) 45%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────
+   /v2 cinematic route
+   ─────────────────────────────────────────────────────────────── */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-reverse linear infinite;
+  }
+
+  /* Pause both tracks together on hover so a label can be read. */
+  .group:hover .animate-marquee,
+  .group:hover .animate-marquee-reverse {
+    animation-play-state: paused;
+  }
+
+  /* Frosted slab that keeps text legible over the starfield. A tint of white
+     rather than the page colour, which would be invisible against space. */
+  .void-panel {
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    box-shadow: 0 24px 80px -40px rgba(0, 0, 0, 0.9);
+  }
+
+  .display {
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse {
+    animation: none;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

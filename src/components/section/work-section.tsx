@@ -1,87 +1,111 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
-import { useState } from "react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { ArrowUpRight } from "lucide-react";
+import { Reveal } from "@/components/motion/reveal";
+import { Section } from "@/components/section/section";
 import { DATA } from "@/data/resume";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-function LogoImage({ src, alt }: { src: string; alt: string }) {
-  const [imageError, setImageError] = useState(false);
-
-  if (!src || imageError) {
-    return (
-      <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border bg-muted flex-none" />
-    );
-  }
-
-  return (
-    <img
-      src={src}
-      alt={alt}
-      className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border overflow-hidden object-contain flex-none"
-      onError={() => setImageError(true)}
-    />
-  );
-}
 
 export default function WorkSection() {
   return (
-    <Accordion type="single" collapsible className="w-full grid gap-6">
-      {DATA.work.map((work) => (
-        <AccordionItem
-          key={work.company}
-          value={work.company}
-          className="w-full border-b-0 grid gap-2"
-        >
-          <AccordionTrigger className="hover:no-underline p-0 cursor-pointer transition-colors rounded-none group [&>svg]:hidden">
-            <div className="flex items-center gap-x-3 justify-between w-full text-left">
-              <div className="flex items-center gap-x-3 flex-1 min-w-0">
-                <LogoImage src={work.logoUrl} alt={work.company} />
-                <div className="flex-1 min-w-0 gap-0.5 flex flex-col">
-                  <div className="font-semibold leading-none flex items-center gap-2">
-                    {work.company}
-                    <span className="relative inline-flex items-center w-3.5 h-3.5">
-                      <ChevronRight
-                        className={cn(
-                          "absolute h-3.5 w-3.5 shrink-0 text-muted-foreground stroke-2 transition-all duration-300 ease-out",
-                          "translate-x-0 opacity-0",
-                          "group-hover:translate-x-1 group-hover:opacity-100",
-                          "group-data-[state=open]:opacity-0 group-data-[state=open]:translate-x-0"
-                        )}
-                      />
-                      <ChevronDown
-                        className={cn(
-                          "absolute h-3.5 w-3.5 shrink-0 text-muted-foreground stroke-2 transition-all duration-200",
-                          "opacity-0 rotate-0",
-                          "group-data-[state=open]:opacity-100 group-data-[state=open]:rotate-180"
-                        )}
-                      />
+    <Section
+      id="work"
+      eyebrow="01 / experience"
+      title="Where I've worked"
+    >
+      <div className="flex flex-col">
+        {DATA.work.map((role, index) => (
+          <Reveal key={`${role.company}-${role.title}`} index={index}>
+            <article className="group grid gap-5 border-t border-border py-8 md:grid-cols-[180px_1fr] md:gap-10">
+              <div className="flex items-start gap-3 md:flex-col md:gap-3">
+                <img
+                  src={role.logoUrl}
+                  alt=""
+                  className="size-12 flex-none rounded-lg border border-border bg-card object-contain p-1.5"
+                />
+                <div className="flex flex-col gap-1">
+                  <span className="mono text-[11px] text-muted-foreground">
+                    {role.start} — {role.end}
+                  </span>
+                  {role.current && (
+                    <span className="mono inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] text-primary">
+                      current
                     </span>
-                  </div>
-                  <div className="font-sans text-sm text-muted-foreground">
-                    {work.title}
-                  </div>
+                  )}
                 </div>
               </div>
-              <div className="flex items-center gap-1 text-xs tabular-nums text-muted-foreground text-right flex-none">
-                <span>
-                  {work.start} - {work.end ?? "Present"}
-                </span>
+
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-lg font-semibold tracking-tight">
+                    {role.title}
+                  </h3>
+                  <a
+                    href={role.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex w-fit items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    {role.company}
+                    {"team" in role && role.team ? ` · ${role.team}` : ""}
+                    <ArrowUpRight className="size-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                  </a>
+                  <span className="mono text-[11px] text-muted-foreground">
+                    {role.location}
+                  </span>
+                </div>
+
+                <p className="max-w-2xl text-pretty text-sm leading-relaxed text-muted-foreground">
+                  {role.summary}
+                </p>
+
+                <ul className="flex max-w-2xl flex-col gap-2.5 pt-1">
+                  {role.highlights.map((highlight) => (
+                    <li
+                      key={highlight}
+                      className="relative pl-4 text-pretty text-sm leading-relaxed text-muted-foreground before:absolute before:left-0 before:top-[0.6em] before:size-1 before:rounded-full before:bg-primary/60"
+                    >
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {role.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="mono rounded-md border border-border bg-card/50 px-2 py-0.5 text-[11px] text-muted-foreground"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="p-0 ml-13 text-xs sm:text-sm text-muted-foreground">
-            {work.description}
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
+            </article>
+          </Reveal>
+        ))}
+
+        <Reveal index={DATA.work.length}>
+          <div className="flex flex-col gap-4 border-t border-border py-8 md:flex-row md:items-center md:gap-10">
+            <span className="eyebrow md:w-[180px]">also</span>
+            {DATA.otherExperience.map((item) => (
+              <div key={item.company} className="flex items-center gap-3">
+                <img
+                  src={item.logoUrl}
+                  alt=""
+                  className="size-11 flex-none rounded-lg border border-border bg-card object-contain p-1.5"
+                />
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">
+                    {item.title} · {item.company}
+                  </span>
+                  <span className="mono text-[11px] text-muted-foreground">
+                    {item.start} — {item.end} · {item.summary}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </Section>
   );
 }
-
