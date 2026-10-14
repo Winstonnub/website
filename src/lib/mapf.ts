@@ -46,9 +46,22 @@ const manhattan = (a: Cell, b: Cell): number =>
 
 const sameCell = (a: Cell, b: Cell): boolean => a.x === b.x && a.y === b.y;
 
-/** Position of an agent at time t; it rests on its goal once finished. */
-export const at = (path: Path, t: number): Cell =>
-  path[Math.min(t, path.length - 1)];
+/**
+ * Position of an agent at time t; it rests on its goal once finished.
+ *
+ * The index is clamped at both ends. A negative or fractional `t` would
+ * otherwise index outside the array and hand back undefined, which the
+ * callers dereference immediately.
+ */
+export const at = (path: Path, t: number): Cell => {
+  const last = path.length - 1;
+  if (last < 0) return { x: 0, y: 0 };
+  // Math.floor(NaN) stays NaN and slips through min/max, so check it here.
+  // +/-Infinity clamp correctly on their own.
+  if (Number.isNaN(t)) return path[0];
+  const index = Math.min(Math.max(0, Math.floor(t)), last);
+  return path[index];
+};
 
 /**
  * Counts vertex conflicts (two agents on one cell) and edge conflicts (two

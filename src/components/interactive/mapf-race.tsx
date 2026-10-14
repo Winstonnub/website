@@ -290,11 +290,14 @@ export default function MapfRace() {
     let last = performance.now();
 
     const tick = (now: number) => {
-      const delta = (now - last) / 1000;
+      // The rAF timestamp is the frame's start time, which can predate the
+      // performance.now() captured when this effect ran — so the first delta
+      // can be negative. Clamping keeps `time` from going below zero.
+      const delta = Math.max(0, (now - last) / 1000);
       last = now;
       setTime((t) => {
         const next = t + delta * TICKS_PER_SECOND;
-        return next > horizon ? 0 : next;
+        return next > horizon ? 0 : Math.max(0, next);
       });
       raf = requestAnimationFrame(tick);
     };

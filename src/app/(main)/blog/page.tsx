@@ -21,6 +21,9 @@ const formatDate = (value: string) =>
     month: "short",
     day: "numeric",
     year: "numeric",
+    // Without a fixed zone the server (UTC) and the browser can land on
+    // different days, which fails hydration with React error #418.
+    timeZone: "UTC",
   });
 
 export default async function BlogPage({
