@@ -61,8 +61,10 @@ export const DATA = {
       summary:
         "Building the data models and internal tools Shopify's sales organization runs on, helping reps prioritize the merchants most likely to buy.",
       highlights: [
-        "Improved the average precision of the merchant-ranking ML model by 90% across 800k training records, adding signals of merchant interest in Shopify's funding products.",
-        "Shipped a new field through two production data models, giving sales reporting a call, email, and review breakdown across 320K+ tasks and unblocking a dashboard migration off a legacy data source.",
+        "Doubled the average precision (+109%) of the ML model that picks which merchants sales reps contact each day, raising projected profit from its top 5% of picks from $1.8M to $3.6M by adding signals of merchant interest in financing.",
+        "Taught a sales ranking system to tell big deals from small ones, putting $18.2M more in won deals into the top 20% of leads on 2025 data. It's now used daily by 290+ salespeople.",
+        "Fixed a sales forecast that overvalued one product's leads by 60%, removing about $3.5M of inflated expected value from the sales list.",
+        "Migrated a sales dashboard tracking 210K+ tasks to new official data, and backfilled 290M+ rows to train new model features.",
       ],
       stack: ["Python", "SQL", "dbt-style data models", "ML ranking"],
     },
@@ -315,6 +317,16 @@ export const DATA = {
   honors: {
     // Shown in full — scholarships are the part people actually scan for.
     scholarships: [
+      {
+        title: "The John Grant Leadership Award",
+        level: "University",
+        description: "University of Toronto, 2026.",
+      },
+      {
+        title: "The Jennie and Frank Tsui Award",
+        level: "University",
+        description: "Victoria College, University of Toronto, 2026.",
+      },
       {
         title: "University of Toronto International Merit Award",
         level: "University",
